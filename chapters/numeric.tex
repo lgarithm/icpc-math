@@ -1,0 +1,78 @@
+\section{Linear Algebra}
+\subsection{Determinant}Evulate a matrix.
+
+$$
+$$
+\subsection{Linear Equations}
+
+
+\section{Discrete Fourier Transform}
+
+Let $P$ and $G$ be two polynomials of degree $n$, if we want to calculate their product, 
+it will take $O(n^2)$.
+
+Let $\{a_k\}_{k=0}^{n-1}$ be a sequence of $n$ numbers,
+the discrete Fourier transform of it is another sequence $\{x_k\}_{k=0}^{n-1}$ defined by 
+$$x_k = \sum_{r=0}^{n-1} a_r \exp({2\pi i kr \over n})$$
+and the inverse transform is given by 
+$$a_k = {1 \over n} \sum_{r=0}^{n-1} x_r \exp(-{2\pi i kr \over n})$$
+
+Let $\{a_k\}$ and $\{b_k\}$ be two sequences of length $n$, 
+the circular colvolution of them is anther sequence $\{c_k\}$ defined by
+$$c_k = \sum_{r+s \equiv k \pmod n} a_r b_s$$
+
+\subsection{Circular Convolution}
+
+The discrete Fourier transform has something to to with circular convolution, 
+that is $$a \circ b = \mathcal{F}^{-1}(\mathcal{F}(a) \cdot \mathcal{F}(b))$$
+
+If we can calculate $\mathcal{F}(a)$ and $\mathcal{F}^{-1}(a)$ in $O(n \log n)$ time,
+then multiply polynomials will be also in $O(n^2)$ time.
+
+\subsection{Fast Fourier Transform}To do fast Fourier transform, $n$ must be a power of $2$, 
+if $n$ is not a power of $2$, we can choose an integer wich is a power of $2$
+and greater than $n$, then add some padding zeros at the end of the sequence.
+
+Let $w_N = e^{-{2\pi i \over N}}$, a primitive $N$-th unit root.
+When $N$ is even, $w_{N / 2} = w_N^2$.
+Let $x=(x_n)$ be a sequence of length $N$, 
+$p_0, p_1, \dots, p_{N/2}$ be the DFT of $x_0, x_2, \dots, x_{N-2}$,
+$q_0, q_1, \dots, q_{N/2}$ be the DFT of $x_1, x_3, \dots, x_{N-1}$,
+$y$ be the DFT of $x$.
+Then we have
+$$p_n = \sum_{k=0}^{N/2 - 1} x_{2k} w_{N/2}^{nk} \quad n = 0, 1, \dots, N/2 - 1$$
+$$q_n = \sum_{k=0}^{N/2 - 1} x_{2k+1} w_{N/2}^{nk} \quad n = 0, 1, \dots, N/2 - 1$$
+and 
+\begin{align*}
+y_n &= \sum_{k=0}^{N-1} x_k w_N^{nk} \quad n = 0, 1, \dots, N - 1\\
+&= \sum_{k=0}^{N/2-1} x_{2k} w_N^{2nk} + \sum_{k=0}^{N/2 - 1} x_{2k+1} w_N^{n(2k+1)} \\
+&= \sum_{k=0}^{N/2-1} x_{2k} w_{N/2}^{nk} + w_N^n \sum_{k=0}^{N/2 - 1} x_{2k+1} w_{N/2}^{nk}
+\end{align*}
+therefore, when $0 \leq n < N / 2$, 
+$$y_n = p_n + w_N^n q_n$$
+and because of $w_{N/2}^{nk} = w_{N/2}^{(n+N/2)k}$, $w_N^{N/2} = -1$,
+$$y_{n + N} = p_n + w_N^{n + N/2} q_n = p_n - w_N^n q_n.$$
+According to this relation, 
+if $p$ and $q$ are known, we can calculate $y$ only in $O(N)$ time,
+but this requires $N$ to be even. If $N=2^l$, $p$ and $q$ also can be calculated
+in the same way. So we obtained a recursive algorithm to calculate DFT, 
+using only $O(N\log N)$ time, as long as $N = 2^l$.
+The time complexity can be proved by induction,
+when $N = 1$, we only let $y_0 = x_0$;
+when $N = 2^l$, we can calculate both $p$ and $q$ in 
+$$O({N\over 2}\log {N\over 2})$$ time,
+so the total time is 
+$$O({N\over 2}\log {N\over 2}) + O({N\over 2}\log {N\over 2}) + O(N) = O(N\log N)$$
+
+Here gives the main process of FFT.
+\verbatiminput{fft.txt}
+
+\subsection{Number Theoretic Transform}
+Instead of $\mathbb{C}$, we can perform DFT over a finite field, 
+an $N$-th primitive root will be used in place of $w_N$.
+It's most convenient to take the finte field $\mathbb{Z} / p\mathbb{Z}$, 
+where p is a prime.
+If $p=2^lk + 1$, then $\mathbb{Z} / p\mathbb{Z}$ contains
+$2^l$-th primitive roots. According to Dirichlet's theorem on arithmetic progress,
+given $l$ fixed, there are infinite many primes such that $p-1$ divides $2^l$.
+In the range of $32$-bit integers, $2013265921 = 2^{27} \ast 15 + 1$ is a good choice.

@@ -1,0 +1,63 @@
+1012	Fermat vs_ Pythagoras
+1020	Triangle
+1022	Uniform Generator
+1023	Prime Cuts
+1059	Pi
+1088	考古学家的困境
+1092	欧几里得算法
+1115	阶乘
+1148	Secret Code
+1159	Factorial
+1630	最小公倍数
+1743	How Many Common Divisors?
+1748	How Many Common Divisors?(II)
+1763	Sum of Factorials
+1764	Vivian's Problem
+1802	Quadratic Residues
+1933	Looooops
+1974	Mod 9
+2011	Ones
+2087	Happy 2005
+2115	麦森数
+2191	Farey Sequence 
+2193	Longge's problem 
+2326	Factorial Factors
+2471	Reduced ID Numbers
+2478	Simple Task
+2479	Simple Task II
+2498	Count prime
+2501	Bedtime Reading, I
+2502	Bedtime Reading, II
+2577	Prime Path
+2583	Sum of Different Primes
+2661	Farey Sequence
+2666	分解 n!
+2668	C(n,k)
+2704	Combination
+2763	Factorial
+2833	Euler's totient function
+2843	Self Numbers
+2858	Happy 2006
+2880	Semi-prime H-numbers
+2911	Divisors
+3006	Last digit
+3019	Count Color
+3020	X-factor Chains
+3137	Simple Computing
+3138	Simple Computing II
+3165	Big^n
+3173	Factor count
+3249	Number Sets
+3252	Choose
+3273	Count the factors
+3274	Goldbach's Conjecture
+3290	Distribute The Apples
+3291	Distribute The Apples II
+3293	Rescue Me I
+3294	Rescue Me II
+3298	Divisibility
+3315	Natasha's Problem
+3416	YAPTCHA
+3450	Divisors showdown
+3451	Euler's totient function
+3595	Product of Divisors

@@ -1,0 +1,47 @@
+\section{Game of Nim}
+The game of nim is a game played by two players, 
+who alternatively take turns to remove stones from a pile among several.
+The one who can not move any stones lose.
+If there are $n$ piles of stones, 
+a game of nim can be represent by $n$ numbers $x_1,x_2,\dots,x_n$.
+
+\begin{thm}
+The player move first has a winning strategy if and only if 
+$$x_1 \oplus x_2 \oplus \cdots x_n>0.\footnote{$\oplus$ means exclusive or.}$$
+\end{thm}
+
+\begin{prf}
+Notice the two facts:
+
+Suppose $x=x_1 \oplus \cdots \oplus x_n$, then one of the $x_i$ changes its value will cause the change of x.
+Assume we $x_1$ change to $y_1(y_1\neq x_1)$, 
+then $y_1 \oplus x_2 \oplus \cdots x_n = y_1 \oplus x_1 \oplus x_1 \oplus x_2 \oplus \cdots \oplus x_n = y_1 \oplus x_1 \oplus x$.
+hence $y_1 \neq x_1$, therefore $y_1 \oplus x_1\neq 0$, $y_1 \oplus x_1 \oplus x \neq x$.
+
+Another fact is, if $x=x_1 \oplus \cdots \oplus x_n > 0$, there exists a move which changes $x_i$ to $y_i(y_i<x_i)$, will make $x$ zero. 
+
+If such move exists, we have, assume the index $i$ is $1$ without lose of generality, then 
+$0=y_1 \oplus x_2 \oplus \cdots x_n=y_1 \oplus (x_1 \oplus x_1) \oplus \cdots x_n =(y_1 \oplus x_1) \oplus (x_1 \oplus \cdots x_n)$, 
+therefore $x_1 \oplus y_1 \oplus x=0$ and $y_1=x \oplus x_1$. 
+We must prove such $x_i$ and $y_i < x_i$ exists.
+
+In fact, there must be at least one digital $1$ is the binary experssion of a non zero number.
+Suppose $x=2^{d_1} + 2^{d_2} + \cdots + 2^{d_k}, d_1 > d_2 > \dots > d_k$, 
+so the ones are in the $d_i$th position of the binary expression of $x$, 
+therefore at least one of $x_i$ must have a one in $d_1$th position, 
+turn the digitals in the $d_1$th, $d_2$th, $\dots$, $d_k$th position of that number to opposite state then
+that number must becomes smaller, since the highest bit we change is from $1$ to $0$.
+Meanwhile $x$ becomes zero.
+\end{prf}
+
+
+\subsection{Simplify Rules}
+Sometimes a game is hard to analysis directly, so we must transform it to another simpler case.
+There are two rules to do this:
+
+If there are two equivalent state in a game, they can be eliminated simultaneously.
+
+If there is a state which makes the first player lose, it can be eliminated from the game.
+
+\section{Combinatory Game}
+

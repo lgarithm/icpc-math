@@ -1,0 +1,55 @@
+\section{Basic Concepts}
+A graph is a set of vertices connected by edges.
+A graph $G$, denoted by $G(V, E)$, $V$ is called the set of vertex and $E$ is called the set of edges.
+
+When all edges connect different vertices, and every two edges is connected by at most one edge, 
+we call the graph a simple graph. 
+
+Usually, we assume the edge has no direction, in that case,
+$E$ can be viewed as an irreflexive and symmetric binary realtion $V$.
+
+If the edges has directed, that is, there may be a edge from $u$ to $v$ but no edge from $v$ to $u$.
+The relation $E$ on $V$ is not symmetric any more. But we assume for every two edges $u$ and $v$, 
+there is at most one edge from $u$ to $v$, and there is no edge from $u$ to $u$.
+Then we can still use a irreflexive binary relation on $V$ to model a graph.
+
+But sometimes, there may be edges from a vertex to itself, and there may be more than one edges 
+between two vertices, we call the graph a multiple graph. A multiple graph can not be modeled by 
+binary relations. So we give the formal definitions:
+
+An undirected multiple graph $G(V, E)$ is a set $V$ of vertices and a set $E$ of edges, and there 
+exist a function associate each edge with two vertices.
+
+A directed multiple grapg $G(V, E)$ is a set $V$ of vertices and a set $E$ of edges, and there
+exist two functions $s, e : E \to V$, for each edge $l \in E$, $s(l)$ is called the start of $l$, 
+$e(l)$ is called the end of $l$.
+
+\section{Simple Graph}
+
+\section{Shortest Path}
+There are two kinds of problems, SSSP and APSP.	\subsection{Signal Source Shortest Path(SSSP)}
+	% \subsection{Diskstra Algorithm}
+	\subsection{All Pair Shortest Path(APSP)}
+	% \subsection{Floyed Algorithm}
+
+\section{Network Flow}
+By a network, we mean a positive weighted directed multiple graph $G(V, E)$,
+for each $e \in E$, the weight $c(e) > 0$ of $e$ is called the capacity of $e$.
+A flow on $G$ is a function $f : E \to \mathbb{R}^+ \cup \{0\}$.
+For a vertices $v \in V$, let $f^-(v) = \sum_{(u, v) \in E} f(u, v)$
+and $f^+(v) = \sum_{(v, u) \in E} f(v, u)$.
+
+If given two distinct vertices $s$ and $t$ in $V$, 
+a flow $f$ on $G$ is a proper flow from $s$ to $t$ 
+if $f(e) \leq c(e)$ for all $e \in E$ and $f^+(v) = f^-(v)$ for all $v \in V \backslash \{s, t\}$.
+
+\begin{pro}
+If $f$ is a proper flow from $s$ to $t$, then $f^+(s) = f^-(t)$.
+\end{pro}
+
+Let $f, g$ be two proper flows on $G$ from $s$ to $t$, $s, t \in V, s \neq t$.
+
+\section{Bipart Graph}
+	\subsection{The Hungary Algorithm}
+	\subsection{The KM Algorithm}
+

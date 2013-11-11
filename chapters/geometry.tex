@@ -1,0 +1,19 @@
+\section{Point and Line}
+We use coordinates to represent point and linear equations to represent lines.
+The equation of the line passes $P(x_1,y_1)$ and $Q(x_2,y_2)$ is
+$$\left|\begin{matrix}X&Y&1\cr x_1&y_1&1\cr x_2&y_2&1\end{matrix}\right|=0,$$
+or equally
+$$\left|\begin{matrix}y_1&1\cr y_2&1\end{matrix}\right|X
+-\left|\begin{matrix}x_1&1\cr x_2&1\end{matrix}\right|Y
++\left|\begin{matrix}x_1&y_1\cr x_2&y_2\end{matrix}\right|=0,$$
+and the intersection point of line $L(X,Y)=a_1X + b_1Y + c_1=0$ and $M(X,Y)=a_2X + b_2Y + c_2=0$ is
+$$({{\left|\begin{matrix}b_1&c_1\cr b_2&c_2\end{matrix}\right|}\over d},
+-{{\left|\begin{matrix}a_1&c_1\cr a_2&c_2\end{matrix}\right|}\over d}),$$
+where $d=\left|\begin{matrix}a_1&b_1\cr a_2&b_2\end{matrix}\right|$.
+If we use homogeneous coordinates for points, 
+the intersection point will be 
+$$(\left|\begin{matrix}b_1&c_1\cr b_2&c_2\end{matrix}\right|,
+-{\left|\begin{matrix}a_1&c_1\cr a_2&c_2\end{matrix}\right|},
+\left|\begin{matrix}a_1&b_1\cr a_2&b_2\end{matrix}\right|).$$
+
+\section{Convex Hull}

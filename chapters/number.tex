@@ -1,0 +1,205 @@
+Number theory is the most charming subject in mathematics.
+It deals problems about integers, which computer is good at.
+There are many problems on elementary number theory in the ICPC contest,
+each can be solved by beautiful solution with elegant coding skill.
+
+\section{Prime and Divisibility}
+Let $m$ and $n$ be integers, if exist $k\in \mathbb{Z}$ such that $m=nk$,
+we say $m$ is a multiple of $n$ and $n$ is a divisor, or factor of $m$, denoted $n\mid m$.
+
+For integers $m, n(n\neq 0)$, there is an unique pair of $r, q \in \mathbb{Z}$,
+such that $m=nq+r, 0 \leq r < \abs{n}$, in the case $r\neq 0$,
+it is said to be the remindar of $m$ divided by $n$.
+In C/C++ language, we use \verb|m % n| to calculate the remindar of $m$ divided by $n$,
+but when $m$ is negative, the result $r$ will be negative if it's now zero, and $-\abs{n} < r < 0$.
+To make it positive, we should code as \verb|(m % n + abs(n)) % n|,
+or usually \verb|(m % n + n) % n| if provided $n$ is positive.
+
+A prime is a natural number that has no positive divisors other than $1$ and itself.
+other numbers are composite, except $1$, which is neither prime nor composite.
+The first primes are $2, 3, 5, 7, 11, \dots$. There are $25$ primes before $100$, and $168$ primes before $1000$.
+There are infinite many primes and the number of primes no greater than $n$ is approximately $n / \log n$.
+
+\subsection{Primality Test}
+For $n > 1$, if it can not be divided by any numbers between $1$ and $n$, it must be a prime.
+But observe if $n$ can be divide by $d(1 < d < n)$, it also can be dividey by $n / d$,
+either $d$ or $n / d$ must be smaller or equal to $\sqrt{n}$.
+So it's enough to check all numbers from $2$ to $\left[\sqrt{n}\right]$.
+The worse case is when $n$ is a prime or equals the square of a prime,
+but for random cases, this algoritm will soon end with a quite small divisor of $n$.
+In coding, we can use \verb|i * i <= n| to avoid computing the square root of $n$.
+\lstinputlisting[language=c++]{./source/number/primality.cpp}
+
+There are faster algorithms to do the primality test, such as Miller-Rabin test.
+Most of these algorithm are complicate, we don't disscuss them in this book.
+But we shall introduce the Eratosthenes's sieve, which generate a table of primes,
+and can be used when there is frequent primality tests of small numbers.
+
+\subsection{Eratosthenes's Sieve}
+For an integer $n > 1$, if we want to figure out all primes numbers from $1$ to $n$,
+any algorithm that test each number will take a long time.
+
+The Eratosthenes's sieve is a very old algorithm dates back to around 200 BC,
+it's idea is quite simple: for each numbers from $2$ to $n$, if it is a prime,
+then mark all it's multiples other than itself to be composite,
+then find the next number which has not been marked yet, it must be a prime.
+Repeat the operation till the end. In fact, everytime we find a prime $p$,
+we only have to mark $p^2, p(p + 1), p(p + 2), \dots p\left[{n \over p}\right]$.
+\lstinputlisting[language=c++]{./source/number/eratosthenes.cpp}
+
+
+\subsection{Factoring Numbers}
+An important fact which will be frequently used is:
+given an integer greater than $1$, it can be decomposite into product of primes,
+and the decomposition is unique if we don't distinguish the order.
+This is know as the foundament theorem of arithmetic.
+In concrete term, for integer $n > 1$, we have
+$$n = p_1^{e_1} \dots p_k^{e_k}$$
+where $p_i$ are disditct primes and $e_i > 0$, this is called the standard factorization of $n$.
+
+The solutions of many problems depend on the standard factorization of $n$.
+If we already know $p$ is a prime factor of $n$,
+we can repeat divide $n$ by $p$ many times until the qoutient can not be dividey by $p$ any more.
+Suppose we divide $n$ by $p$ for $k$ times, finally the quotient $m$ can not divided by $p$,
+then $n = p^k m$, now we only have to factor $m$, which is smaller than $n$.
+So the problem of factoring number reduce to find a prime factor.
+Obviously this problem can not be easier than judge a number is prime.
+If we want to factor all numbers from $1$ to $n$, inspired by the Eratosthenes's sieve,
+we can store a prime factor for each number during the process.
+
+
+\section{Linear Equation}
+\subsection{$ax + by = c$}
+The equation $ax + by = c$, where $a, b, c$ are integers served as a bridge links several aspects of number theory.
+
+\begin{thm}
+The equation $ax + by = c$ has a solution if and only if $\gcd(a, b) \mid c$.
+\end{thm}
+To prove this theorem, we need this lemma
+\begin{lem}
+The set $\{ax + by \mid x, y \in \mathbb{Z}\}$ equals to $\{kd \mid k \in \mathbb{Z}\}$ for some $d$.
+\end{lem}
+\begin{prf}
+Choose $d \in \{ax + by \mid x, y \in \mathbb{Z}\} \backslash \{0\}$ with smallest absolute value,
+we assert $\{ax + by \mid x, y \in \mathbb{Z}\} = \{kd \mid k \in \mathbb{Z}\}$.Let $d = ax_1 + by_1$, for $c = ax_2 + by_2$, there is $q, r$ such that $c = dq + r, (0 \leq r < \abs{d})$,
+then $r = a(x_2 - x_1q) + b(y_2 - y_1q)$.
+\end{prf}
+
+Since $a, b \in \{ax + by \mid x, y \in \mathbb{Z}\}$, according to the lemma, $d \mid a$ and $d \mid b$,
+therefore $d \mid \gcd(a, b)$. On the other hand, for every common divisor $e$ of $a$ and $b$,
+$e \mid d$ because $d = ax_1 + by_1$. So $d = \gcd(a, b)$. $\qed$
+Now we come to the conclusion that $\{ax + by \mid x, y \in \mathbb{Z}\}$ is the set of all multiples of $\gcd(a, b)$.
+This conclusion only guarantees the existence of solutions for $ax + by = d$, but we still don't know how to find one.
+So it's necessary to develop an algorithm to solve this problem.
+
+\subsubsection{Extended Euclid's Algorithm}
+Give $a, b$, the extended Euclid's algorithm finds a pair of $(x, y)$ such that $ax + by = \gcd(a, b)$.
+Assume $a = bq + r$, if $(x_1, y_1)$ is a solution of $ax + by = d$,
+then $(bq + r)x_1 + by_1 = d$, that is $b(y_1 + qx_1) + rx_1 = d$,
+therefore $(y_1 + qx_1, x_1)$ is a solution of $bx + ry = d$.
+If we already got a solution of $bx + ry = d$, which is $(x_2, y_2)$,
+let $(y_1 + qx_1, x_1) = (x_2, y_2)$, we can figure out $(x_1, y_1)$.
+\lstinputlisting{./source/number/euclid.cpp}
+
+\subsubsection{Euclid's algorithm}
+If we only wish to calculate the greatest common divisor of $a$ and $b$,
+the above algorithm reduce to the classic Euclid's algorithm.
+\lstinputlisting[language=c++]{./source/number/gcd.cpp}
+
+
+\subsection{The Chinese Remainder Theorem}
+\begin{thm}
+If $(m_i,m_j)=1$ for all $i\neq j$, the linear congruence equations
+$$\begin{cases}
+x\equiv a_1\pmod{m_1}\cr
+x\equiv a_2\pmod{m_2}\cr
+\quad \vdots\cr
+x\equiv a_n\pmod{m_n}\cr
+\end{cases}$$
+has unique solution modulo $m_1m_2\hdots m_n$.
+\end{thm}
+The solution can be constructive.
+In fact $x=\sum a_iM_iM_i^\prime$ is the solution,
+where $M_i={m_1m_2\cdots m_n\over m_i}$, $M_i^\prime$ is the inverse of $M_i$ modulo $m_1m_2\hdots m_n$.
+
+If $O(m_1+m_2+\hdots+m_n)$ is bearable
+(in fact this is the most common case because $m_1m_2\hdots m_n$ can't be too large),
+an enumerative algorithm can be carry out:
+
+Let $x=0$ initially, increase $x$ by $1$ each time until we got $x\equiv a_1\pmod{m_1}$;
+then increase $x$ by $m_1$ each time until we got $x\equiv a_2\pmod{m_2}$;
+generally, in $k$th step, increase $x$ by $m_1\cdots m_{k-1}$ each time until we got $x\equiv a_k\pmod{m_k}$.
+Then we will got the solution after $n$ steps.
+
+\section{Modular Arithmetic}
+Given an integer $n$, we say $a$ congruence to $b$ module $n$ if $n$
+divides $a - b$ exactly, or $n \mid (a - b)$, and write $a \equiv b \pmod n$.
+The goodness of modular arithmetic is the number won't get very large.
+
+\subsection{The Repeated Squaring Method}
+To calculate $a^n \mod m$.
+\lstinputlisting[language=c++]{./source/number/mod_exp.cpp}
+
+\subsection{$ax = b \pmod n$}
+This equation can be transformed to $n \mid (ax - b)$,
+so there is an integer $y$, for which $ax - b = ny$, or equally $ax - ny = b$.
+So it has a solution if and only if $\gcd(a, n) \mid b$.
+
+In particular, when $\gcd(a, n) = 1$ and $b = 1$, there is a number $a^\prime$
+for which $aa^\prime \equiv 1 \pmod n$, we call it the inverse of $a$ module $n$.
+
+\begin{thm}[Fermat-Euler]
+Let $\gcd(a, n) = 1$, then $a^{\varphi(n)} \equiv 1 \pmod n$.
+\end{thm}
+Fermat's little theorem is the special case when $n = p$, which is a prime.
+\subsection{Index and Primitive root}
+$\gcd(a, n) = 1$, the smallest $d$ such that $a^d \equiv 1 \pmod n$ is called the
+index of $a$ module $n$.
+
+\begin{thm}
+The index of $a$ module $n$ is a divisor of $\varphi(n)$.
+\end{thm}
+According to this theorem, if we want to calculate the index of $a$ module $n$,
+we can enumerate all divisors of $\varphi(n)$, but we have more efficient ways.
+
+First decomposite $\varphi(n)$ into $p_1^{e_1} \dots p_k^{e_k}$.
+
+\section{Carry System}
+
+\section{Arithmetic Functions}
+Generally speacking, an arithmetic function is a function definded on integers only.
+And in ICPC, we only intrested in the arithmetic functions which take values as
+integers too.
+
+The common ones are $\phi(n), d(n), \sigma(n)$.
+
+\subsection{M\"obius Transform}
+\subsection{Dirichlet Convolution}
+
+\section{Algebraic Methods}
+We introduce some algebraic approaches to make elementary number theory simpler.
+Beginners may skip this section.
+
+\subsection{Finite Abelian Group}
+Let $n > 1$ be an integer,
+the complete residue classes module $n$ form a cyclic group $\mathbb{Z} / n \mathbb{Z}$,
+which is isomorphic to $C_n$,
+and the reduced residue classes module $n$ form a
+finite Abelian group $(\mathbb{Z} / n \mathbb{Z})^\ast$.
+
+When $n=2^k$, we have
+\begin{eqnarray*}
+(\mathbb{Z} / 2 \mathbb{Z})^\ast & \cong & \{ e \}	\cr
+(\mathbb{Z} / 4 \mathbb{Z})^\ast & \cong &  C_2	\cr
+(\mathbb{Z} / 8 \mathbb{Z})^\ast & \cong &  C_2 \oplus C_2	\cr
+(\mathbb{Z} / 16 \mathbb{Z})^\ast & \cong &  C_2 \oplus C_4	\cr
+(\mathbb{Z} / 32 \mathbb{Z})^\ast & \cong &  C_2 \oplus C_8	\cr
+					& \vdots &	\cr
+(\mathbb{Z} / 2^k \mathbb{Z})^\ast & \cong & C_2 \oplus C_{k-2}	\cr
+\end{eqnarray*}
+When $n=p^k$, where $p$ is an odd prime, we know $n$ do
+have primitive roots according to elementary number theory,
+thus $\mathbb{Z} / n \mathbb{Z}$ is a cyclic group
+of order $\varphi(p^k) = p^k - p^{k-1}$.
+
+% \subsection{Lattice}
