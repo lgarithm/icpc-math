@@ -19,30 +19,22 @@ struct SuffixArray{
     }
   };
 
-  template<typename T>
-  struct circle{
-    const T* S;
-    int n;
-
-    circle(const T* S, int n): S(S), n(n) {}
-
-    T operator[](int i) const {
-      return S[i % n];
-    }
-  };
-
   struct rank_cmp{
-    const circle<int> R;
+    const int* R;
+    const int n;
     const int d;
 
-    rank_cmp(const int* R, int n, int d): R(R, n), d(d) {}
+    rank_cmp(const int* R, int n, int d): R(R), n(n), d(d) {}
 
     bool operator()(int i, int j) const{
-      return R[i] < R[j] || (R[i] == R[j] && R[i + d] < R[j + d]);
+        return R[i] < R[j]
+            || (R[i] == R[j] && i + d < n && j + d < n && R[i + d] < R[j + d]);
     }
 
     bool eq(int i, int j) const{
-      return R[i] == R[j] && R[i + d] == R[j + d];
+        return R[i] == R[j] 
+            && ((i + d < n && j + d < n && R[i + d] == R[j + d])
+                || (i + d >= n && j + d >= n));
     }
   };
 
