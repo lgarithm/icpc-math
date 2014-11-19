@@ -15,11 +15,11 @@ sqn = truncate . sqrt . fromIntegral
 sqm = ceiling . sqrt . fromIntegral
 
 -- | remove all prime factors of a from n
-fil n a = let d = gcd n a in  if d == 1 then n else fil (div n d) a
+fil n a = let d = gcd n a in if d == 1 then n else fil (div n d) a
 
 -- | find a solution of ax + by = d, where d = gcd(a, b)
 euclid _ 0 = (1, 0)
-euclid a b = let (y, x) = euclid b (mod a b) in  (x, y - (div a b) * x)
+euclid a b = let (y, x) = euclid b (mod a b) in (x, y - (div a b) * x)
 
 -- | find a' in [0 .. n-1] such that a * a' = d (mod n)
 -- where d = gcd(a, n), where d = 1, a' is the modular inverse
@@ -71,7 +71,7 @@ dlog_pr g p r a = let n = p ^ r
                       ph = n - (div n p)
                       g' = associate g n
                       m = sqm ph
-                      t = Map.fromList $ zip (scanl (mmm n) (mod a n) $ replicate (m-1) (expo n g m)) [0, m ..]
+                      t = Map.fromList $ zip (scanl (mmm n) (mod a n) $ replicate (m-1) (expo n g m)) [0, m .. ]
                   in  let Just i = findIndex (flip Map.member t) $ scanl1 (mmm n) $ replicate m g'
                       in  let k = expo n g' i
                               Just j = Map.lookup k t
@@ -86,4 +86,4 @@ droot_pr p r a m = let n = p ^ r
 -- | find solution of x = a (mod m) = b (mod n)
 crt a m b n = (`mod` (m * n)) . sum $
               map product [ [a, n, associate n m],
-                            [b, m, associate m n]]
+                            [b, m, associate m n] ]
