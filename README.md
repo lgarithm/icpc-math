@@ -15,11 +15,11 @@ so I decide to move it here and continue the work when I'am free.
 Table of Contents
 ---
 
-## Number Theory
-## Combinatorics
-## Geometry
-## Graph
-## Game Theory
-## Best Strategy
-## Search
-## Numeric
+- Number Theory
+- Combinatorics
+- Geometry
+- Graph
+- Game Theory
+- Best Strategy
+- Search
+- Numeric
