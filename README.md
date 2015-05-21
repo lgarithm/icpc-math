@@ -3,6 +3,8 @@ icpc-math
 
 A tutorial on ACM/ICPC related mathematics
 
+[![PDF Status](https://www.sharelatex.com/github/repos/lgarithm/icpc-math/builds/latest/badge.svg)](https://www.sharelatex.com/github/repos/lgarithm/icpc-math/builds/latest/output.pdf)
+
 Motivation
 ---
 
