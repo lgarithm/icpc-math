@@ -1,5 +1,35 @@
-\section{Point and Line}
-We use coordinates to represent point and linear equations to represent lines.
+\def\det22#1#2#3#4{\left|\begin{matrix}#1 & #2\cr #3 & #4\end{matrix}\right|}
+
+\section{Planar Geometry}
+
+\subsection{Point and Line}
+Point and line are the elementary objects in planar geometry.
+Usually we use Cartesian coordinates to represent point and linear equations to
+represent lines.
+
+Every point on the real plane can be represented by a pair of real numbers
+$(x, y)$ uniquely and vice versa. The pair $(x, y)$ is called the Cartesian
+coordinates of the point.
+
+Evey line on the real plane can be represented by a (but not unique) linear
+equation $ax + by + c = 0$ where $ab \neq 0$. The equation $ax + by + c = 0$ can
+be considered as a $3$-tuple of real numbers $(a, b, c)$. For $k \neq 0$,
+$(ka, kb, kc)$ represents the same line. We use the symbol $[a : b : c]$ to
+represent the line $ax + by + c = 0$ and call it the homogeneous coordinates of
+line. Note that $[a : b : c] = [ka : kb : kc]$ for $k \neq 0$.
+
+We can use the notation $[a : b : c]$ to define homogeneous coordinates for
+planar points. For a point with Cartesian coordinates $(x, y)$, its homogeneous
+coordinates is defined as $[x : y : 1]$. Note that $[zx : zy : z]$ where
+$(z \neq 0)$ is the same homogeneous coordinates.
+
+For two distinct points, there is a unique line passes them, and for two distinct
+lines which are not parallel to each other, they intersect at exactly one point.
+The equation of the line passes two points and the Cartesian
+coordinates of intersection point of two lines can be computed by solving linear
+equations. But there is a more beautiful solution when we use homogensous
+coordinates and the notation of determinant.
+
 The equation of the line passes $P(x_1,y_1)$ and $Q(x_2,y_2)$ is
 $$\left|\begin{matrix}X&Y&1\cr x_1&y_1&1\cr x_2&y_2&1\end{matrix}\right|=0,$$
 or equally
@@ -9,11 +39,20 @@ $$\left|\begin{matrix}y_1&1\cr y_2&1\end{matrix}\right|X
 and the intersection point of line $L(X,Y)=a_1X + b_1Y + c_1=0$ and $M(X,Y)=a_2X + b_2Y + c_2=0$ is
 $$({{\left|\begin{matrix}b_1&c_1\cr b_2&c_2\end{matrix}\right|}\over d},
 -{{\left|\begin{matrix}a_1&c_1\cr a_2&c_2\end{matrix}\right|}\over d}),$$
-where $d=\left|\begin{matrix}a_1&b_1\cr a_2&b_2\end{matrix}\right|$.
-If we use homogeneous coordinates for points, 
-the intersection point will be 
-$$(\left|\begin{matrix}b_1&c_1\cr b_2&c_2\end{matrix}\right|,
--{\left|\begin{matrix}a_1&c_1\cr a_2&c_2\end{matrix}\right|},
-\left|\begin{matrix}a_1&b_1\cr a_2&b_2\end{matrix}\right|).$$
+where $d = \det22{a_1}{b_1}{a_2}{b_2}$.
+If we use homogeneous coordinates for points, the intersection point can be written as
+\begin{equation*}
+[ \det22{b_1}{c_1}{b_2}{c_2} :
+- \det22{a_1}{c_1}{a_2}{c_2} :
+  \det22{a_1}{b_1}{a_2}{b_2} ]
+\end{equation*}
 
-\section{Convex Hull}
+So we can define an operation $\times$ on the homogeneous coordinates by
+\begin{equation*}
+[a : b : c] \times [x : y : z]
+= [ {\det22 b c y z} : {\det22 c a z x} : {\det22 a b x y} ]
+\end{equation*}
+It can compute the line passes two points and the intersection point of two
+lines in an unified formula.
+
+\subsection{Convex Hull}
