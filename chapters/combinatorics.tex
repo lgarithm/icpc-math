@@ -1,7 +1,15 @@
 \section{Permutation}
-\subsection{Group of Permutations}
+A \idx{permutation} is an arrangement of $n$ distinct objects in a certain order.
+Usually the $n$ objects will be represented by integer numbers $1, \dots, n$.
 
-\subsection{number of permutations and set partitions of a given shape}
+\subsection{Group of Permutations}
+A $n$-permutation $\varphi$ can be considered as a bijection
+$$\varphi : \{1, \dots, n\} \to \{1, \dots, n\}$$
+Therefore two permutations can be composited as functions.
+Bijection has inverse. This makes the set of all permutations into a finite group,
+called the \idx{symmetric group} $S_n$.
+
+\subsection{Number of Permutations and Set Partitions of a Given Shape}
 We say a permutation is of shape
 $$1^{\lambda 1}2^{\lambda 2} \dots n^{\lambda n} \label{shape}$$
 if it has exactly $\lambda_i$ cycles of length $i$.
@@ -48,7 +56,8 @@ $$N=\sum{1\over \left| O(x)\right|}
 ={1\over{\left| G\right|}}\sum fix(g).$$
 That is, the number of orbits equals the average number of fixed points.
 
-\subsection{Counting Geometric Shapes}\subsubsection{Euler's formula $V-E+F=2$}
+\subsection{Counting Geometric Shapes}
+\subsubsection{Euler's formula $V-E+F=2$}
 Euler's formula for planar graph is a very beautiful formula,
 we shall use it to a class of counting problems.
 There are three variables in the equation, only we know two of them, the third can be calculated.

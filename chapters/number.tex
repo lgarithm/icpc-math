@@ -15,8 +15,8 @@ but when $m$ is negative, the result $r$ will be negative if it's now zero, and 
 To make it positive, we should code as \verb|(m % n + abs(n)) % n|,
 or usually \verb|(m % n + n) % n| if provided $n$ is positive.
 
-A prime is a natural number that has no positive divisors other than $1$ and itself.
-other numbers are composite, except $1$, which is neither prime nor composite.
+A \keyword{prime} is a natural number that has no positive divisors other than $1$ and itself.
+other numbers are \keyword{composite}, except $1$, which is neither prime nor composite.
 The first primes are $2, 3, 5, 7, 11, \dots$. There are $25$ primes before $100$, and $168$ primes before $1000$.
 There are infinite many primes and the number of primes no greater than $n$ is approximately $n / \log n$.
 
@@ -39,14 +39,13 @@ and can be used when there is frequent primality tests of small numbers.
 For an integer $n > 1$, if we want to figure out all primes numbers from $1$ to $n$,
 any algorithm that test each number will take a long time.
 
-The Eratosthenes's sieve is a very old algorithm dates back to around 200 BC,
+The \idx{Eratosthenes's sieve} is a very old algorithm dates back to around 200 BC,
 it's idea is quite simple: for each numbers from $2$ to $n$, if it is a prime,
 then mark all it's multiples other than itself to be composite,
 then find the next number which has not been marked yet, it must be a prime.
 Repeat the operation till the end. In fact, everytime we find a prime $p$,
 we only have to mark $p^2, p(p + 1), p(p + 2), \dots p\left[{n \over p}\right]$.
 \lstinputlisting[language=c++]{./source/number/eratosthenes.cpp}
-
 
 \subsection{Factoring Numbers}
 An important fact which will be frequently used is:
@@ -81,7 +80,8 @@ The set $\{ax + by \mid x, y \in \mathbb{Z}\}$ equals to $\{kd \mid k \in \mathb
 \end{lem}
 \begin{prf}
 Choose $d \in \{ax + by \mid x, y \in \mathbb{Z}\} \backslash \{0\}$ with smallest absolute value,
-we assert $\{ax + by \mid x, y \in \mathbb{Z}\} = \{kd \mid k \in \mathbb{Z}\}$.Let $d = ax_1 + by_1$, for $c = ax_2 + by_2$, there is $q, r$ such that $c = dq + r, (0 \leq r < \abs{d})$,
+we assert $\{ax + by \mid x, y \in \mathbb{Z}\} = \{kd \mid k \in \mathbb{Z}\}$.
+Let $d = ax_1 + by_1$, for $c = ax_2 + by_2$, there is $q, r$ such that $c = dq + r, (0 \leq r < \abs{d})$,
 then $r = a(x_2 - x_1q) + b(y_2 - y_1q)$.
 \end{prf}
 
@@ -93,7 +93,7 @@ This conclusion only guarantees the existence of solutions for $ax + by = d$, bu
 So it's necessary to develop an algorithm to solve this problem.
 
 \subsubsection{Extended Euclid's Algorithm}
-Give $a, b$, the extended Euclid's algorithm finds a pair of $(x, y)$ such that $ax + by = \gcd(a, b)$.
+Give $a, b$, the \idx{extended Euclid's algorithm} finds a pair of $(x, y)$ such that $ax + by = \gcd(a, b)$.
 Assume $a = bq + r$, if $(x_1, y_1)$ is a solution of $ax + by = d$,
 then $(bq + r)x_1 + by_1 = d$, that is $b(y_1 + qx_1) + rx_1 = d$,
 therefore $(y_1 + qx_1, x_1)$ is a solution of $bx + ry = d$.
@@ -103,7 +103,7 @@ let $(y_1 + qx_1, x_1) = (x_2, y_2)$, we can figure out $(x_1, y_1)$.
 
 \subsubsection{Euclid's algorithm}
 If we only wish to calculate the greatest common divisor of $a$ and $b$,
-the above algorithm reduce to the classic Euclid's algorithm.
+the above algorithm reduce to the classic \idx{Euclid's algorithm}.
 \lstinputlisting[language=c++]{./source/number/gcd.cpp}
 
 
@@ -116,7 +116,7 @@ x\equiv a_2\pmod{m_2}\cr
 \quad \vdots\cr
 x\equiv a_n\pmod{m_n}\cr
 \end{cases}$$
-has unique solution modulo $m_1m_2\hdots m_n$.
+has unique solution modulo $m_1m_2\cdots m_n$.
 \end{thm}
 The solution can be constructive.
 In fact $x=\sum a_iM_iM_i^\prime$ is the solution,
@@ -151,10 +151,11 @@ for which $aa^\prime \equiv 1 \pmod n$, we call it the inverse of $a$ module $n$
 \begin{thm}[Fermat-Euler]
 Let $\gcd(a, n) = 1$, then $a^{\varphi(n)} \equiv 1 \pmod n$.
 \end{thm}
-Fermat's little theorem is the special case when $n = p$, which is a prime.
-\subsection{Index and Primitive root}
+\idx{Fermat's little theorem} is the special case when $n = p$, which is a prime.
+
+\subsection{Index and Primitive Root}
 $\gcd(a, n) = 1$, the smallest $d$ such that $a^d \equiv 1 \pmod n$ is called the
-index of $a$ module $n$.
+\idx{index} of $a$ module $n$.
 
 \begin{thm}
 The index of $a$ module $n$ is a divisor of $\varphi(n)$.
@@ -167,9 +168,8 @@ First decomposite $\varphi(n)$ into $p_1^{e_1} \dots p_k^{e_k}$.
 \section{Carry System}
 
 \section{Arithmetic Functions}
-Generally speacking, an arithmetic function is a function definded on integers only.
-And in ICPC, we only intrested in the arithmetic functions which take values as
-integers too.
+Generally speacking, an \idx{arithmetic function} is a function definded on integers only.
+In ICPC, we mostly intrested in the arithmetic functions which take values as integers too.
 
 The common ones are $\phi(n), d(n), \sigma(n)$.
 
